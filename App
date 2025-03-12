@@ -1,0 +1,98 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Search Bar Styles */
+.search-container {
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  width: 100%;
+  max-width: 600px;
+  padding: 12px 16px;
+  font-size: 16px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Tab Styles */
+.tabs-container {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tab-headers {
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 12px 20px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.tab-button:hover {
+  background-color: #e0e0e0;
+}
+
+.tab-button.active {
+  background-color: #fff;
+  border-bottom: 2px solid #007bff;
+}
+
+.tab-content {
+  padding: 20px;
+  min-height: 200px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  .search-bar {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  .tab-button {
+    font-size: 14px;
+    padding: 10px 15px;
+  }
+
+  .tab-content {
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tab-headers {
+    flex-direction: column;
+  }
+
+  .tab-button {
+    width: 100%;
+  }
+
+  .tab-button.active {
+    border-bottom: none;
+    border-left: 2px solid #007bff;
+  }
+}
