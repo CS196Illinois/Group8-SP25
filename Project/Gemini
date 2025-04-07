@@ -1,0 +1,30 @@
+from google import genai
+
+# Initialize the generative model
+#model = genai.GenerativeModel('gemini-2.0-flash')
+client = genai.Client(api_key='AIzaSyBHf1X6sNtWMBOxvve7BvOeU0w61egDCHY')
+
+aspect = input("Enter a product you would like to analyze: ")
+def get_llm_output_pos(aspect: str):   
+    response = client.models.generate_content(
+        model="gemini-2.0-flash", contents="Based on existing sentiments about similar products, give me suggestions for creating"
+        "a " + aspect + " that customers will love. Keep the suggestions concise and actionable and only list key features. Try to make the list exclusive"
+        "to only the features and keep it to around 10 features."
+    )
+    return response.text
+def get_llm_output_neg(aspect: str):   
+    response = client.models.generate_content(
+        model="gemini-2.0-flash", contents="Based on existing sentiments about similar products, what are some features of " + aspect + 
+        " that customers generally dislike? Try to make the list exclusive to only the features and keep it to around 10 features."
+    )
+    return response.text
+
+print(get_llm_output_pos(aspect))
+print(get_llm_output_neg(aspect))
+
+#this week ...
+#add another parameter in the function - webscraped contents
+#shape prompts to search through the contents for anything pertaining to the inputted product
+#return a list of features that are mentioned in the webscraped contents, and map them to the comments that describes them.
+#this will be a dictionary with the feature as the key and the comments as the value
+#the comments should be one long string - each comment should be separated by a semicolon

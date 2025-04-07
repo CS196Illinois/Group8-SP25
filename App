@@ -34,7 +34,7 @@
 .tab-headers {
   display: flex;
   border-bottom: 1px solid #ddd;
-  background-color: #f5f5f5;
+  background-color: #ffbe82;
 }
 
 .tab-button {
