@@ -5,22 +5,27 @@ from google import genai
 client = genai.Client(api_key='AIzaSyBHf1X6sNtWMBOxvve7BvOeU0w61egDCHY')
 
 aspect = input("Enter a product you would like to analyze: ")
-def get_llm_output_pos(aspect: str):   
+def comment_generator(aspect: str):   
     response = client.models.generate_content(
-        model="gemini-2.0-flash", contents="Based on existing sentiments about similar products, give me suggestions for creating"
-        "a " + aspect + " that customers will love. Keep the suggestions concise and actionable and only list key features. Try to make the list exclusive"
-        "to only the features and keep it to around 10 features."
-    )
-    return response.text
-def get_llm_output_neg(aspect: str):   
-    response = client.models.generate_content(
-        model="gemini-2.0-flash", contents="Based on existing sentiments about similar products, what are some features of " + aspect + 
-        " that customers generally dislike? Try to make the list exclusive to only the features and keep it to around 10 features."
+        model="gemini-2.0-flash", contents="Given the product " + aspect + ", generate some comments/reviews about the product. Do not include anything other than the comments."
     )
     return response.text
 
-print(get_llm_output_pos(aspect))
-print(get_llm_output_neg(aspect))
+def createMap(aspect: str):   
+    response = client.models.generate_content(
+        model="gemini-2.0-flash", contents="From comments " + comment_generator(aspect) + ", a large string of text, grouping the comments with the aspect that they are describing."
+        "The string should be formatted as follows: 'aspect: comment1; comment2; comment3; -- aspect2: comment1; comment2; comment3; ...' do not include anything other than the string."
+    )
+    aspect_array = response.text.split(" -- ")
+    aspect_map = {}
+    for i in range(len(aspect_array)):
+        aspect_map[aspect_array[i].split(": ")[0]] = aspect_array[i].split(": ")[1]
+    return aspect_map
+
+
+#print(comment_generator(aspect))
+print(createMap(aspect))
+#print(get_llm_output_neg(aspect))
 
 #this week ...
 #add another parameter in the function - webscraped contents
@@ -28,3 +33,6 @@ print(get_llm_output_neg(aspect))
 #return a list of features that are mentioned in the webscraped contents, and map them to the comments that describes them.
 #this will be a dictionary with the feature as the key and the comments as the value
 #the comments should be one long string - each comment should be separated by a semicolon
+
+#to create map - have llm separate aspect and its comments with a semicolon
+#then, have llm separate each aspect/comments section with a colon - will allow for string manipulation to create map (key and value) 
