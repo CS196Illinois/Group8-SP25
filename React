@@ -1,0 +1,63 @@
+import React, { useState } from 'react';
+import './App.css';
+
+function App() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('tab1');
+
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+    // Add search logic here
+  };
+
+  return (
+    <div className="container">
+      {/* Search Bar */}
+      <div className="search-container">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={handleSearch}
+          className="search-bar"
+        />
+      </div>
+
+      {/* Tabs */}
+      <div className="tabs-container">
+        <div className="tab-headers">
+          <button
+            className={`tab-button ${activeTab === 'tab1' ? 'active' : ''}`}
+            onClick={() => setActiveTab('tab1')}
+          >
+            Tab 1
+          </button>
+          <button
+            className={`tab-button ${activeTab === 'tab2' ? 'active' : ''}`}
+            onClick={() => setActiveTab('tab2')}
+          >
+            Tab 2
+          </button>
+        </div>
+
+        {/* Tab Content */}
+        <div className="tab-content">
+          {activeTab === 'tab1' && (
+            <div className="content">
+              <h2>Tab 1 Results</h2>
+              <p>Results for "{searchQuery}" would appear here</p>
+            </div>
+          )}
+          {activeTab === 'tab2' && (
+            <div className="content">
+              <h2>Tab 2 Results</h2>
+              <p>Alternative results for "{searchQuery}" would appear here</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default App;
